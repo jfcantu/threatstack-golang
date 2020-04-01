@@ -167,7 +167,7 @@ func (rs *RuleService) getRuleTags(id string) (*TagSet, error) {
 	tags := new(TagSet)
 
 	raw, err := rs.client.GetObject(tagpath, nil)
-	if strings.Contains(err.Error(), "No tags found for rule") {
+	if err != nil && strings.Contains(err.Error(), "No tags found for rule") {
 		return tags, nil
 	} else if err != nil {
 		return nil, err
