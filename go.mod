@@ -1,4 +1,4 @@
-module github.com/jfcantu/threatstack-golang/threatstack
+module github.com/jfcantu/threatstack-golang
 
 go 1.14
 
