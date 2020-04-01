@@ -209,7 +209,7 @@ func (client *Client) SendHTTPRequest(req *Request) (*Response, error) {
 			if err != nil {
 				return nil, err
 			}
-			log.Errorf("[ERR] Server returned HTTP %v: %v", httpResponse.StatusCode, string(respBody))
+			log.Tracef("[TRACE] Server response: HTTP %v: %v", httpResponse.StatusCode, string(respBody))
 			return nil, fmt.Errorf("Server returned HTTP code %v for %v: %v", httpResponse.StatusCode, req.request.URL, string(respBody))
 		}
 	}
