@@ -12,12 +12,13 @@ type RulesetService service
 
 // Ruleset represents a Threat Stack ruleset.
 type Ruleset struct {
-	ID          string   `json:"id,omitempty"`
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	CreatedAt   string   `json:"createdAt,omitempty"`
-	UpdatedAt   string   `json:"updatedAt,omitempty"`
-	RuleIDs     []string `json:"ruleIds"`
+	ID              string   `json:"id,omitempty"`
+	Name            string   `json:"name"`
+	Description     string   `json:"description"`
+	CreatedAt       string   `json:"createdAt,omitempty"`
+	UpdatedAt       string   `json:"updatedAt,omitempty"`
+	RuleIDs         []string `json:"ruleIds"`
+	ReturnedRuleIDs []string `json:"rules,omitempty"`
 }
 
 // List returns all the rulesets existing on the server.
@@ -58,6 +59,9 @@ func (rs *RulesetService) Get(id string) (*Ruleset, error) {
 	if err := json.Unmarshal(raw, &resp); err != nil {
 		return nil, err
 	}
+
+	// The ThreatStack API expects "ruleIDs", but returns "rules."
+	resp.RuleIDs = resp.ReturnedRuleIDs
 
 	return resp, nil
 }
